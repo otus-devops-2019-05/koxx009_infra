@@ -1,5 +1,12 @@
 # koxx009_infra
 
+- ##### Настройка VPN через Pritunl
+
+Данные для подключения:
+
+bastion_IP = 35.207.163.99
+someinternalhost_IP = 10.156.0.3
+
 ## Домашние задания
 ### Задание к занятию:
 ------------
@@ -45,9 +52,3 @@ Host someinternalhost
         ProxyJump koxx009@35.207.163.99
 ```
 
-- ##### Настройка VPN через Pritunl
-
-Данные для подключения:
-
-bastion_IP = 35.207.163.99
-someinternalhost_IP = 10.156.0.3
