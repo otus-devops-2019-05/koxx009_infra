@@ -47,9 +47,7 @@ Host someinternalhost
 
 - ##### Настройка VPN через Pritunl
 
-Данные для подключения
-```bash
-    bastion_IP = 35.207.163.99
-    someinternalhost_IP = 10.156.0.3
-```
+Данные для подключения:
 
+bastion_IP = 35.207.163.99
+someinternalhost_IP = 10.156.0.3
