@@ -2,11 +2,6 @@
 
 - ##### Настройка VPN через Pritunl
 
-Данные для подключения:
-
-bastion_IP = 35.207.163.99
-someinternalhost_IP = 10.156.0.3
-
 ## Домашние задания
 ### Задание к занятию:
 ------------
@@ -18,15 +13,15 @@ someinternalhost_IP = 10.156.0.3
 
 Следует отменить, что в CentOS 7 для корректной работы SSH Forwarding необходимо выполнить следующие команды:
 ```bash
-[root@koxx0092 ~]# eval `ssh-agent -s`
+# eval `ssh-agent -s`
 Agent pid 18042
-[root@koxx0092 ~]# ssh-add ~/.ssh/id_rsa
+# ssh-add ~/.ssh/id_rsa
 Identity added: /root/.ssh/id_rsa (/root/.ssh/id_rsa)
 ```
 
 Без выполнения данных команд, при попытки подключиться будет выведен ответ о неудачном подключении:
 ```bash
-[root@koxx0092 ~]# ssh -At koxx009@$EXP_IP_BASTION 'ssh $INT_IP_SOMEINTERNALHOST'
+# ssh -At koxx009@$EXP_IP_BASTION 'ssh $INT_IP_SOMEINTERNALHOST'
 Permission denied (publickey).
 Connection to $EXP_IP_BASTION closed.
 ```
@@ -35,8 +30,8 @@ Connection to $EXP_IP_BASTION closed.
 
 Как вариант, можно использовать переменные. Команда для подключения будет выглядеть следующим образом:
 ```bash
-[root@koxx0092 ~]# export someinternalhost='-A -J koxx009@35.207.163.99 koxx009@10.156.0.3'
-[root@koxx0092 ~]# ssh $someinternalhost
+# export someinternalhost='-A -J koxx009@35.207.163.99 koxx009@10.156.0.3'
+# ssh $someinternalhost
 Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.15.0-1034-gcp x86_64)
 koxx009@someinternalhost:~$
 ```
@@ -51,4 +46,9 @@ Host someinternalhost
         Hostname 10.156.0.3
         ProxyJump koxx009@35.207.163.99
 ```
+
+Данные для подключения:
+
+bastion_IP = 35.207.163.99
+someinternalhost_IP = 10.156.0.3
 
