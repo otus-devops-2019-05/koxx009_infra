@@ -65,6 +65,7 @@ someinternalhost_IP = 10.156.0.3
 * Startup script для автоматической установки и запуска приложения
 
 Для этого был создан файл  `startup-script.sh`:
+
     #!/bin/bash
     
     # Installing Ruby
