@@ -51,6 +51,9 @@ Host someinternalhost
 bastion_IP = 35.207.163.99
 someinternalhost_IP = 10.156.0.3
 
+
+---------
+
 #### 6. "Основные сервисы Google Cloud Platform (GCP)."
 
 Данные для подключения:
