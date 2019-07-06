@@ -51,3 +51,73 @@ Host someinternalhost
 bastion_IP = 35.207.163.99
 someinternalhost_IP = 10.156.0.3
 
+
+---------
+
+#### 6. "Основные сервисы Google Cloud Platform (GCP)."
+
+Данные для подключения:
+
+    testapp_IP = 35.246.205.229
+    testapp_port = 9292
+
+##### Дополнительные задания:
+* Startup script для автоматической установки и запуска приложения
+
+Для этого был создан файл  `startup-script.sh`:
+
+    #!/bin/bash
+    
+    # Installing Ruby
+    sudo apt update
+    sudo apt install -y ruby-full ruby-bundler build-essential
+    
+    # Installing MongoDB
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+    sudo bash -c 'echo "deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" > /etc/apt/sources.list.d/mongodb-org-3.2.list'
+    sudo apt update
+    sudo apt install -y mongodb-org
+    
+    # Starting MongoDB
+    sudo systemctl start mongod
+    
+    # Enable autostart MongoDB
+    sudo systemctl enable mongod
+    
+    # Cloning app
+    cd ~
+    git clone -b monolith https://github.com/express42/reddit.git
+    
+    # Starting app
+    cd reddit
+    bundle install
+    puma -d
+    
+
+Команда для создания инстанса с запуском  `startup-script.sh`:
+
+    gcloud compute instances create reddit-app-2 \
+    --boot-disk-size=10GB \
+    --image-family ubuntu-1604-lts \
+    --image-project=ubuntu-os-cloud \
+    --machine-type=g1-small \
+    --tags puma-server \
+    --restart-on-failure \
+    --metadata-from-file startup-script=startup-script.sh
+
+* Создание Firewall правила через gcloud
+
+Удаление текущего правила:
+
+    gcloud compute firewall-rules delete default-puma-server
+
+
+Добавление нового правила через gcloud:
+
+    gcloud compute firewall-rules create default-puma-server \
+    --allow tcp:9292 \
+    --target-tags=puma-server \
+    --source-ranges="0.0.0.0/0" \
+    --description="Puma http access"
+    
+
