@@ -1,0 +1,20 @@
+- name: Deploy app
+  hosts: app
+  tasks:
+    - name: Fetch the latest version of application code
+      git:
+        repo: 'https://github.com/express42/reddit.git'
+        dest: /home/koxx009/reddit
+        version: monolith # <-- Указываем нужную ветку
+      notify: reload puma
+
+    - name: Bundle install
+      bundler:
+        state: present
+        chdir: /home/koxx009/reddit # <-- В какой директории выполнить команду bundle
+
+  handlers:
+  - name: reload puma
+    become: true
+    systemd: name=puma state=restarted
+

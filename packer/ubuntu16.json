@@ -17,7 +17,7 @@
 		"image_name": "reddit-base-{{timestamp}}",
 		"image_family": "reddit-base",
 		"source_image_family": "{{user `source_image_family`}}",
-		"zone": "europe-west3-c",
+		"zone": "europe-west1-c",
 		"ssh_username": "koxx009",
 		"machine_type": "{{user `machine_type`}}",
 		"image_description": "{{user `desc`}}",
